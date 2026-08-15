@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import { Book, type BookProps } from '../domain/book';
 
@@ -30,8 +30,8 @@ export class DuplicateBookError extends Error {
 @Injectable()
 export class ReadingListService {
   public constructor(
-    private readonly repository: BookRepository,
-    private readonly idGenerator: BookIdGenerator,
+    @Inject(BOOK_REPOSITORY) private readonly repository: BookRepository,
+    @Inject(BOOK_ID_GENERATOR) private readonly idGenerator: BookIdGenerator,
   ) {}
 
   public async add(input: AddBookInput): Promise<BookProps> {
